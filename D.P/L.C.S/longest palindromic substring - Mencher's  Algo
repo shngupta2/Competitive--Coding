@@ -1,0 +1,51 @@
+// Question https://leetcode.com/problems/longest-palindromic-substring/
+// video https://www.youtube.com/watch?v=l-XCWjps-UQ
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        
+        if(s.size() == 0) return s;
+        string m = "";
+        m += '$';
+        for(int i = 0; i < s.size(); i++) {
+            m += s[i];
+            m += '$';
+        }
+        vector <int> t(m.size(), 0);
+        for(int i = 1; i < m.size(); i++) {
+            int l = i;
+            int r = i;
+            int count = 0;
+            if(m[l] == m [r]) {
+                while(m[l] == m[r]) {
+                if(l - 1 >= 0 && r + 1 < m.size()) {
+                    if(m[l] != '$' && l != r) count++;
+                    l--;
+                    if(m[r] != '$' && l != r) count++;
+                    r++;
+                    }
+                else break;
+                }
+                t[i] = count;
+            }
+            else if(m[i] == '$') t[i] = 0;
+            else t[i] = 1;
+        }
+        int max = INT_MIN;
+        int ind;
+        for(int i = 0; i < t.size(); i++) {
+            if(t[i] > max) {
+                max = t[i];
+                ind = i;
+            }
+        }
+        string rs = "";
+        for(int j = ind - max; j < ind + max; j++) {
+            if(m[j] != '$') {
+                rs += m[j];
+            }
+        }
+        return rs;
+    }
+};
