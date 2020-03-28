@@ -1,0 +1,26 @@
+Ex: a = "AXY"
+    b = "ADXCPY"
+    is a subsequence of b 
+    O/P - T/F
+ 
+ int main() {
+  string a;
+  string b;
+  cin>>a;
+  cin>>b;
+  int n = a.size();
+  int m = b.size();
+  int dp[n + 1][m + 1] = {0};
+  for(int i = 0; i <= n; i++) {
+      for(int j = 0; j <= m; j++) {
+          if(i == 0 || j == 0) dp[i][j] = 0;
+          else if(a[i - 1] == b[i - 1]) dp[i][j] = 1 + dp[i - 1][j - 1];
+          else  dp[i][j] = 0;
+          }
+    }
+    if(dp[n][m] == n) 
+        cout<<"True";
+    else 
+        cout<<"false";
+    return 0;
+}
