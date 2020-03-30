@@ -1,0 +1,33 @@
+// video https://www.youtube.com/watch?v=ArNyupe-XH0
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+       int solve(TreeNode* root, int& res) {
+        if(!root) return 0;
+        int l = solve(root->left, res);
+        int r = solve(root->right, res);
+        int temp = max(l, r) + root->val;
+        if(!root->left && !root->right) temp = max(temp, root->val);  // not compulsary
+        int ans = max(temp, l + r + root->val);
+        res = max(res, ans);
+        
+        return temp;
+    }
+    
+    int maxPathSum(TreeNode* root) {
+         if(!root) return 0;
+        int res = INT_MIN;
+        solve(root, res);
+        
+        return res ;      
+    }
+};
