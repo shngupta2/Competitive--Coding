@@ -1,4 +1,5 @@
 //Question https://www.interviewbit.com/problems/largest-rectangle-in-histogram/
+//Approach-1 using stack of pair to store element and index;
 
 int Solution::largestRectangleArea(vector<int> &A) {
     int n = A.size();
