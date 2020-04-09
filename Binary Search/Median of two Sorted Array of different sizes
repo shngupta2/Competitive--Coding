@@ -1,0 +1,49 @@
+// Question https://www.interviewbit.com/problems/median-of-array/
+// Video https://www.youtube.com/watch?v=LPFhl65R7ww
+/* Approach
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+ * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+ *
+ * Solution
+ * Take minimum size of two array. Possible number of partitions are from 0 to m in m size array.
+ * Try every cut in binary search way. When you cut first array at i then you cut second array at (m + n + 1)/2 - i
+ * Now try to find the i where a[i-1] <= b[j] and b[j-1] <= a[i]. So this i is partition around which lies the median.
+ *
+ * Time complexity is O(log(min(x,y))
+ * Space complexity is O(1)
+ */
+ 
+ double Solution::findMedianSortedArrays(const vector<int> &A, const vector<int> &B) {
+ // find the array with shorter size and aaplying approch on that array
+    if(A.size() > B.size()) {
+        return findMedianSortedArrays(B, A);
+    }
+    int n1 = A.size();  // size of shorter array
+    int n2 = B.size();  // size of larger array
+    int low = 0;        
+    int high = n1;      // size of shorter array
+   while(low <= high) {
+        int partitionx = (low + high) / 2;        // partition we apply partitioning on smaller array from 0 to its size if partition is k means there are k elements in the partition.
+        int partitiony = (n1 + n2 + 1)/ 2 - partitionx; // partition w.r.y first partition sothat no. lf elements in both the partition are same
+        
+        int maxleftx = (partitionx == 0)? INT_MIN : A[partitionx - 1];  // maximum value of the left partitiom of partitio is 0 then no element before it just initialize it with -infinity
+        int minrightx = (partitionx == n1)? INT_MAX : A[partitionx];    // minimum value of the right side it is the value just after partition if partition is at array size then update it with +infinity
+        
+        int maxlefty = (partitiony == 0)? INT_MIN : B[partitiony - 1];
+        int minrighty = (partitiony == n2)? INT_MAX : B[partitiony];
+
+        if(maxleftx <= minrighty && maxlefty <= minrightx) {  //condition that tells we reach the middle of the combined array
+            if((n1 + n2) % 2 == 0) {
+                return (double)(max(maxleftx, maxlefty) + min(minrightx, minrighty)) / 2.0; // if array 1 + array 2 size is even it means the median is the average of the middle two elements thatswhy we take value from both side of partition
+            } else {
+                return (double)(max(maxleftx, maxlefty)); // if array1 + array2 size is odd then median is just the middle element thatis before the partition so take max of the value 
+            }
+        } else if(maxleftx > minrighty) {
+            high = partitionx - 1;    // move towards start
+        } else if(maxlefty >minrightx) {
+            low = partitionx + 1;     // move towards end
+        }
+        
+    }
+    
+}
