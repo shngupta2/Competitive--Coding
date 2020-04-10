@@ -1,0 +1,28 @@
+// B.Tree Inorder Recursive Solution:
+
+void inorder(TreeNode* root) {
+    if(root) {
+      inorder(root->left);
+      cout<<root->val;
+      inorder(root->right);
+      }
+}
+
+// B. Tree Inorder Iterative Solution:
+
+void inorder(TreeNode* root) {
+  stack <TreeNode* root> s;
+  while(1) {
+    while(root) {
+        s.push(root);
+        root = root->left;
+        }
+        if(s.empty())
+          break;
+         root = s.pop();
+         cout<<root->val;
+         root = root->right;
+    }
+}
+
+//N - ary Tree Inorder Traversal not possible
