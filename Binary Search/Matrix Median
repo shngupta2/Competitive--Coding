@@ -1,0 +1,33 @@
+//Question https://www.interviewbit.com/problems/matrix-median/
+
+/* Approach 
+ * As we know in a matrix each rows are of same size
+ * Assume here total no. of elements in matrix are odd
+ * Matrix is rowwise sorted
+ * minimum of matrix is in the first element of each row and max is from the last element 
+ * apply binary search from min to max and count for ach element in each row no. of elements equals or below it
+ * if it is equal to median of matrix size then that will be the result
+ */
+ 
+ int Solution::findMedian(vector<vector<int> > &A) {
+    int n = A.size();
+    int m = A[0].size();
+    int r = (1 + n * m)/ 2;
+    int low = INT_MAX;
+    int high = INT_MIN;
+     for(int i = 0; i < n; i++) {
+        low = min(A[i][0], low);
+        high = max(A[i][m - 1], high);
+    }
+    while(low < high) {
+        int count = 0;
+        int mid = low + (high - low) / 2;
+        for(int i = 0;  i < n; i++) 
+            count += upper_bound(A[i].begin(), A[i].end() , mid) - (A[i].begin());
+        if(count < r)
+            low = mid + 1;
+        else 
+            high = mid;
+    }
+    return low;
+}
