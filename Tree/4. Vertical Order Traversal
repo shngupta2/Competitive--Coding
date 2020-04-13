@@ -35,12 +35,22 @@ public:
             
             //to store level
             int y = p.second.second;
+            
+            // in map storing horizontal distance x and for each horizontal dist. x level y at which node exist node value stored 
+            //in set at which nodes in increasing order of there value stored here we have all distinct pairs of hd and levels.
             m[x][y].insert(tmp->val);
+            
+            // traverse for left and right child
             if(tmp->left) {q.push(make_pair(tmp->left, make_pair(x - 1, y + 1)));}
             if(tmp->right) {q.push(make_pair(tmp->right, make_pair(x + 1, y + 1)));}
         }
+        
+        // traverse map
         for(auto p : m) {
+          //for each hd value will be stored in this vector later it will be push_backed in final 2d result vector 
             vector<int> col;
+            
+            //for each hd traverse for each level where value exist and insert in temp vector.
             for(auto q : p.second) {
                 col.insert(col.end(), q.second.begin(), q.second.end());
             }
