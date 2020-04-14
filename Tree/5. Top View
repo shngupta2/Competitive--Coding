@@ -1,0 +1,30 @@
+// Question https://www.hackerrank.com/challenges/tree-top-view/problem
+
+void fillmap(Node * root, int d, int l, map <int, pair<int, int>>& m) {
+    if(!root) return;
+    if(m.count(d) == 0) {
+        m[d] = make_pair(root->data, l);
+    } else if(m[d].second > l) {
+        m[d] = make_pair(root->data, l);
+    }
+    if(root->left) {
+        fillmap(root->left, d - 1, l + 1, m);
+    }
+    if(root->right) {
+        fillmap(root->right, d + 1, l + 1, m);
+    }
+}
+    void topView(Node * root) {
+        // map it will store map< horizontal distance, pair< node val, level>>
+        // we have to store the values for each horizontal distance with lower level
+        map <int, pair<int, int>> m;
+        if(!root) return;
+        
+        // dfs call to store values in map;
+        fillmap(root, 0, 0, m);
+        for(auto it = m.begin(); it != m.end(); it++) {
+            cout<<it->second.first<<" ";
+        }
+    }
+
+};
