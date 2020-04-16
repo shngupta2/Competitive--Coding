@@ -1,0 +1,25 @@
+  void bpath(TreeNode* root, vector<int> & path, int len) {
+        if(!root) return;
+        if(len < path.size()) {
+            path[len] = root->val;
+            len++;
+        } else {
+            path.push_back(root->val);
+            len++;
+        }
+        if(!root->left && !root->right) {
+            int x = 0;
+            for(int i = 0; i < len; i++) {
+                cout<<path[i]<<"\t";
+            }cout<<endl;
+         } else {
+            bpath(root->left, path, len);
+            bpath(root->right, path, len);
+        }
+    }
+    int sumNumbers(TreeNode* root) {
+        vector<int> path;
+        bpath(root, path, 0);
+        return 0;
+    }
+};
