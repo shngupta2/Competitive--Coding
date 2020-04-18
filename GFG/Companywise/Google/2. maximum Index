@@ -1,0 +1,49 @@
+//https://practice.geeksforgeeks.org/problems/maximum-index/0
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	int n;
+	cin>>t;
+	while(t--) {
+	    cin>>n;
+	    if(n == 1) {
+	        cout<<0<<endl;
+	    } 
+	    else {
+	    vector<int> a(n, 0);
+	    for(int i = 0; i < n; i++) {
+	        cin>>a[i];
+	    }
+	    vector <int> lmin (n, 0);
+	    vector <int> rmax(n, 0);
+	    lmin[0] = 0;
+	    rmax[n - 1] = n - 1;
+	    for(int i = 1; i < n; i++) {
+	        lmin[i] = a[i] < a[lmin[i - 1]] ? i : lmin[i - 1];
+	    }
+	    for(int i =  n - 2; i >= 0; i--) {
+	        rmax[i] = a[i] > a[rmax[i + 1]] ? i : rmax[i + 1];
+	    }
+	    int maxdiff = -1;
+	    int i = 0;
+	    int j = 0;
+	    while(i < n && j < n) {
+	        if(a[lmin[i]] <= a[rmax[j]] && lmin[i] <= rmax[j]) {
+	            maxdiff = max(maxdiff, rmax[j] - lmin[i]);
+	            j += 1;
+	        } else {
+	            i += 1;
+	        }
+	        
+	        
+	    }
+	    cout<<maxdiff<<endl;
+	}
+	}
+	return 0;
+}
