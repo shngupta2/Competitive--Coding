@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/longest-valid-parentheses/
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack <char> k;
+        stack <int> t;
+        t.push(-1);
+        int res = 0;
+        for(int i = 0; i < s.size(); i++) {
+           if(!k.empty() && s[i] == ')' && k.top() == '(') {
+                t.pop();
+                k.pop();
+                res = max(res, i - t.top());
+            } 
+            else {
+                k.push(s[i]);
+                t.push(i);
+            }
+        }
+        return res;
+    }
+};
