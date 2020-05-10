@@ -1,6 +1,7 @@
 /* Naive String Search Algo
 * string pat
 * string text
+* T.C = O(n*m)
 */
 
 #include <bits/stdc++.h>
