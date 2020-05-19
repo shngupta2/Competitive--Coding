@@ -1,5 +1,6 @@
 /*
- *here you can see insertion of trie
+ *here you can see insertion of trie.
+ * here you will see both iterative and recursive version
  * T.C = O(m * l)
  * m = no. of strings, l = maximum length of string;
  */
@@ -22,7 +23,8 @@ struct TrieNode * getNode() {
   return p;
   }
   
-  void insert(struct TrieNode *root, string key) {
+// iterative insertion start  
+void insert(struct TrieNode *root, string key) {
     struct TrieNode *p = root;
     for(int i = 0; i < key.size(); i++) {
         int  ind = key[i] - 'a';
@@ -32,7 +34,9 @@ struct TrieNode * getNode() {
         }
         p->eof = true;
     }
- 
+ // iterative insertion end
+
+//recursive insertion start
   void insertRecursive(struct TrieNode* curr, string key, int index) {
       if(index == key.size()) {
         curr->eof = true;
@@ -50,7 +54,7 @@ struct TrieNode * getNode() {
   void insertrecur(struct TrieNode* root, string key) {
       insertRecursive(root, key, 0);
   }
-  
+// recursive insertion end
   
   
   
