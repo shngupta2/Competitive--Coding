@@ -1,8 +1,5 @@
 /*
- *here you can see insertion of trie.
- * here you will see both iterative and recursive version
- * T.C = O(m * l)
- * m = no. of strings, l = maximum length of string;
+ *here you can see program for finding prefix for strings.
  */
  
  #include <bits/stdc++.h>
