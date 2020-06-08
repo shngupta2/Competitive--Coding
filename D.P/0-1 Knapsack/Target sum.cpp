@@ -1,3 +1,5 @@
+// Same problem as count the no. of subset with a given difference only change is instead of difference here its gaive name as sum.
+
 // https://leetcode.com/problems/target-sum/submissions/
 class Solution {
 public:
